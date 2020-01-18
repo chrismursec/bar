@@ -53,8 +53,7 @@ const result = (data, key) => {
 export const command = `
 BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';');
 CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';');
-
-
+CPU=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
 SPOTIFY=$(osascript -e 'tell application "System Events"
 set processList to (name of every process)
 end tell
@@ -74,6 +73,7 @@ end if')
 echo $(cat <<-EOF
   {
 	"battery": "$BAT",
+	"cpu": "$CPU",
 	"charging": "$CHARGE",
     "playing": "$SPOTIFY"
   }
@@ -95,11 +95,12 @@ export const render = ({ output, error }) => {
 				type="text/css"
 				href="bar/assets/font-awesome/css/all.min.css"
 			/>
-			<Workspaces
-				config={config.workspaces}
-				data={result(output, 'workspace')}
+			<Workspaces config={config.workspaces} side="left" />
+
+			<Cpu
+				config={config.cpu}
+				output={result(output, 'cpu')}
 				side="left"
-				postman={result(output, 'postman')}
 			/>
 
 			<Playing config={config.playing} data={result(output, 'playing')} />

@@ -1,7 +1,7 @@
 import { element } from '../lib/style.js';
 import { run } from 'uebersicht';
 const shortcutsUrl = '$HOME/.config/ubersicht/shortcuts/';
-const render = ({ config, output, error, side, data }) => {
+const render = ({ config, side, data }) => {
 	let appData = [
 		{ name: 'iTerm', shortcut: 'iterm', icon: 'fa fa-terminal' },
 		{ name: 'Chrome', shortcut: 'chrome', icon: 'fab fa-chrome' },
