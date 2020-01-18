@@ -7,7 +7,7 @@ import { Battery, Cpu, Time, Workspaces, Playing } from './elements/index.jsx';
 
 const config = {
 	time: {
-		format: '%l:%M',
+		format: '%A  %e %b %Y | %l:%M%P',
 		style: {
 			padding: '0 15px',
 			backgroundColor: theme.backgroundLight
@@ -53,6 +53,8 @@ const result = (data, key) => {
 export const command = `
 BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';');
 CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';');
+
+
 SPACE=$(if command -v /usr/local/bin/chunkc >/dev/null 2>&1; then echo $(/usr/local/bin/chunkc tiling::query -d id); else echo ""; fi)
 SPOTIFY=$(osascript -e 'tell application "System Events"
 set processList to (name of every process)
@@ -72,8 +74,8 @@ end if')
 
 echo $(cat <<-EOF
   {
-    "battery": "$BAT",
-    "charging": "$CHARGE",
+	"battery": "$BAT",
+	"charging": "$CHARGE",
     "workspace": "$SPACE",
     "playing": "$SPOTIFY"
   }
@@ -99,10 +101,10 @@ export const render = ({ output, error }) => {
 				config={config.workspaces}
 				data={result(output, 'workspace')}
 				side="left"
+				postman={result(output, 'postman')}
 			/>
 
 			<Playing config={config.playing} data={result(output, 'playing')} />
-
 			<Time config={config.time} side="right"></Time>
 			<Battery
 				config={config.battery}
