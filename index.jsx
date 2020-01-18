@@ -73,6 +73,7 @@ end if')
 echo $(cat <<-EOF
   {
     "battery": "$BAT",
+    "charging": "$CHARGE",
     "workspace": "$SPACE",
     "playing": "$SPOTIFY"
   }
