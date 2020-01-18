@@ -55,7 +55,6 @@ BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';');
 CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';');
 
 
-SPACE=$(if command -v /usr/local/bin/chunkc >/dev/null 2>&1; then echo $(/usr/local/bin/chunkc tiling::query -d id); else echo ""; fi)
 SPOTIFY=$(osascript -e 'tell application "System Events"
 set processList to (name of every process)
 end tell
@@ -76,7 +75,6 @@ echo $(cat <<-EOF
   {
 	"battery": "$BAT",
 	"charging": "$CHARGE",
-    "workspace": "$SPACE",
     "playing": "$SPOTIFY"
   }
 EOF
