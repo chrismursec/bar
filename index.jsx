@@ -7,7 +7,8 @@ import {
 	Workspaces,
 	Playing,
 	Weather,
-	Disk
+	Disk,
+	Speed
 } from './elements/index.jsx';
 export const refreshFrequency = 5000;
 
@@ -38,6 +39,7 @@ BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';')
 CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';')
 CPU=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
 DISK=$(df -H | grep '/dev/disk1s1' | awk '{ print $4 }')
+SPEED=$(/usr/local/bin/speedtest --simple --no-upload | awk 'NR==2{ print; }')
 WEATHER=$(curl -s wttr.in/Stockport?format=%t)
 IP=$(curl -s checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//')
 SPOTIFY=$(osascript -e 'tell application "System Events"
@@ -62,6 +64,7 @@ echo $(cat <<-EOF
 	"cpu": "$CPU",
 	"ip": "$IP",
 	"disk": "$DISK",
+	"speed": "$SPEED",
 	"weather": "$WEATHER",
 	"charging": "$CHARGE",
     "playing": "$SPOTIFY"
@@ -83,11 +86,13 @@ export const render = ({ output, error }) => {
 				type="text/css"
 				href="bar/assets/font-awesome/css/all.min.css"
 			/>
-			<Workspaces side="left" />
+			{/* <Workspaces side="left" /> */}
 
 			<Cpu data={result(output, 'cpu')} />
-			<Ip data={result(output, 'ip')} />
 			<Disk data={result(output, 'disk')} />
+
+			<Ip data={result(output, 'ip')} />
+			<Speed data={result(output, 'speed')} />
 			<Weather data={result(output, 'weather')} />
 
 			<Playing data={result(output, 'playing')} />
