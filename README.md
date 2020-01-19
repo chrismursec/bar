@@ -1,7 +1,7 @@
 
 # Bar
 
-Fork of [callahanrts](https://github.com/callahanrts) Bar widget with a few things changed for how I wanted it. I'm using as a system information bar with a small application launcher instead of the initial workspace element. 
+Fork of [callahanrts](https://github.com/callahanrts) Bar widget with a few things changed for how I wanted it. I'm using as a system information bar with a small application launcher. 
 
 
 Bar is an  [Übersicht](https://github.com/felixhageloh/uebersicht) widget
