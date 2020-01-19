@@ -1,7 +1,7 @@
 import { element } from '../lib/style.js';
 import { run } from 'uebersicht';
 const shortcutsUrl = '$HOME/.config/ubersicht/shortcuts/';
-const render = ({ config, side, data }) => {
+const render = ({ data }) => {
 	let appData = [
 		{ name: 'iTerm', shortcut: 'iterm', icon: 'fa fa-terminal' },
 		{ name: 'Chrome', shortcut: 'chrome', icon: 'fab fa-chrome' },
@@ -11,8 +11,7 @@ const render = ({ config, side, data }) => {
 
 	let style = {
 		...element,
-		...config.style,
-		float: side
+		float: 'left'
 	};
 
 	let spaceStyle = (position, space) => {

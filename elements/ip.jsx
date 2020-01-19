@@ -1,10 +1,9 @@
 import { element } from '../lib/style.js';
 
-const render = ({ config, output, error, side }) => {
+const render = ({ output, error }) => {
 	var style = {
 		...element,
-		...config.style,
-		float: side
+		float: 'left'
 	};
 	return error ? (
 		<span style={style}>!</span>

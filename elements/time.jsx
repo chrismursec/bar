@@ -1,13 +1,15 @@
 import strftime from '../lib/strftime.js';
-import { element, theme } from '../lib/style.js';
+import { element } from '../lib/style.js';
 import { run } from 'uebersicht';
 
-const render = ({ config, output, error, side, theme }) => {
-	let time = strftime(config.format, new Date());
+const render = ({ output, error, theme }) => {
+	let time = strftime('%A  %e %b %Y | %l:%M%P', new Date());
 	var style = {
 		...element,
-		...config.style,
-		float: side
+
+		float: 'right',
+		backgroundColor: 'rgb(44,50,60)',
+		padding: '0 15px'
 	};
 
 	return error ? (

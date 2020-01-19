@@ -1,6 +1,9 @@
 
 # Bar
 
+Fork of [callahanrts](https://github.com/callahanrts) Bar widget with a few things changed for how I wanted it. I'm using as a system information bar with a small application launcher instead of the initial workspace element. 
+
+
 Bar is an  [Übersicht](https://github.com/felixhageloh/uebersicht) widget
 that places a customizable bar on your desktop.
 
@@ -12,6 +15,10 @@ that places a customizable bar on your desktop.
   - Spotify
 - Battery
 - Date/Time
+- Application Launcher
+- CPU Usage
+- IP Address 
+- Current weather (temperature)
 
 
 ## Installation
@@ -25,18 +32,6 @@ Open [index.jsx](https://github.com/callahanrts/bar/blob/master/index.coffee)
 and edit as you'd like. Some of the objects toward the top should make
 customization a little easier.
 
-## Space configuration
-It's possible to get chunkwm to update when spaces are switched. You can
-use the following in your `~/.khdrc`.
-```
-cmd - 1 : khd -p "cmd + alt - 1" && uberrefresh
-...
-```
-`uberrefresh` is a shell script included in this repository. Copy it to
-`/usr/local/bin`
-```
-cp bin/uberrefresh /usr/local/bin/uberrefresh
-```
 
 ## Questions?
 

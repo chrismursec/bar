@@ -1,11 +1,10 @@
 import { element } from '../lib/style.js';
 
-const render = ({ config, output, error, data }) => {
+const render = ({ output, error, data }) => {
 	let style = song => {
 		if (song) {
 			return {
 				...element,
-				...config.style,
 				width: '100%',
 				textAlign: 'center',
 				position: 'fixed',

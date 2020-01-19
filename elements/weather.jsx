@@ -1,10 +1,9 @@
 import { element } from '../lib/style.js';
 
-const render = ({ config, data, side }) => {
+const render = ({ data }) => {
 	var style = {
 		...element,
-		...config.style,
-		float: side
+		float: 'left'
 	};
 	return (
 		<span style={style}>

@@ -1,6 +1,6 @@
 import { element } from '../lib/style.js';
 
-const render = ({ output, error, side, config, data, charge }) => {
+const render = ({ output, error, data, charge }) => {
 	let batColor = level => {
 		var level = parseInt(level);
 
@@ -15,8 +15,7 @@ const render = ({ output, error, side, config, data, charge }) => {
 	let style = level => {
 		return {
 			...element,
-			...config.style,
-			float: side,
+			float: 'right',
 			color: batColor(level)
 		};
 	};
