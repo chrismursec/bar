@@ -2,7 +2,7 @@ import strftime from '../lib/strftime.js';
 import { element } from '../lib/style.js';
 import { run } from 'uebersicht';
 
-const render = ({ output, error, theme }) => {
+const render = ({ error }) => {
 	let time = strftime('%A  %e %b %Y | %l:%M%P', new Date());
 	var style = {
 		...element,

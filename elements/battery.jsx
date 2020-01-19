@@ -1,15 +1,13 @@
 import { element } from '../lib/style.js';
 
-const render = ({ output, error, data, charge }) => {
+const render = ({ data, charge, error }) => {
 	let batColor = level => {
-		var level = parseInt(level);
+		let batLevel = parseInt(level);
 
-		if (level > 80) return '#97c475';
-		// Green
-		else if (level > 55) return '#e5c07b';
-		// Yellow
-		else if (level > 30) return '#d09a6a'; // Orange
-		return '#e06c75'; // Red
+		if (batLevel > 80) return '#97c475';
+		else if (batLevel > 55) return '#e5c07b';
+		else if (batLevel > 30) return '#d09a6a';
+		return '#e06c75';
 	};
 
 	let style = level => {

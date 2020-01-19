@@ -6,7 +6,8 @@ import {
 	Time,
 	Workspaces,
 	Playing,
-	Weather
+	Weather,
+	Disk
 } from './elements/index.jsx';
 export const refreshFrequency = 5000;
 
@@ -36,6 +37,7 @@ export const command = `
 BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';')
 CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';')
 CPU=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
+DISK=$(df -H | grep '/dev/disk1s1' | awk '{ print $4 }')
 WEATHER=$(curl -s wttr.in/Stockport?format=%t)
 IP=$(curl -s checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//')
 SPOTIFY=$(osascript -e 'tell application "System Events"
@@ -59,6 +61,7 @@ echo $(cat <<-EOF
 	"battery": "$BAT",
 	"cpu": "$CPU",
 	"ip": "$IP",
+	"disk": "$DISK",
 	"weather": "$WEATHER",
 	"charging": "$CHARGE",
     "playing": "$SPOTIFY"
@@ -82,8 +85,9 @@ export const render = ({ output, error }) => {
 			/>
 			<Workspaces side="left" />
 
-			<Cpu output={result(output, 'cpu')} />
-			<Ip output={result(output, 'ip')} />
+			<Cpu data={result(output, 'cpu')} />
+			<Ip data={result(output, 'ip')} />
+			<Disk data={result(output, 'disk')} />
 			<Weather data={result(output, 'weather')} />
 
 			<Playing data={result(output, 'playing')} />

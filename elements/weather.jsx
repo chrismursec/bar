@@ -1,7 +1,7 @@
 import { element } from '../lib/style.js';
 
 const render = ({ data }) => {
-	var style = {
+	let style = {
 		...element,
 		float: 'left'
 	};

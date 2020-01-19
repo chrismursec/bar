@@ -1,6 +1,6 @@
 import { element } from '../lib/style.js';
 
-const render = ({ output, error, data }) => {
+const render = ({ data, error }) => {
 	let style = song => {
 		if (song) {
 			return {

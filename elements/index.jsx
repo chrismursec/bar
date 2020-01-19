@@ -1,5 +1,6 @@
 export { default as Battery } from './battery.jsx';
 export { default as Cpu } from './cpu.jsx';
+export { default as Disk } from './disk.jsx';
 export { default as Ip } from './ip.jsx';
 export { default as Playing } from './playing.jsx';
 export { default as Time } from './time.jsx';

@@ -1,6 +1,6 @@
 import { element } from '../lib/style.js';
 
-const render = ({ output, error }) => {
+const render = ({ data, error }) => {
 	var style = {
 		...element,
 		float: 'left'
@@ -9,7 +9,7 @@ const render = ({ output, error }) => {
 		<span style={style}>!</span>
 	) : (
 		<span style={style}>
-			<i className="fa fa-microchip"></i> {output}
+			<i className="fa fa-microchip"></i> {data}
 		</span>
 	);
 };

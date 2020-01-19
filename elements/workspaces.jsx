@@ -2,17 +2,17 @@ import { element } from '../lib/style.js';
 import { run } from 'uebersicht';
 const shortcutsUrl = '$HOME/.config/ubersicht/shortcuts/';
 const render = ({ data }) => {
+	let style = {
+		...element,
+		float: 'left'
+	};
+
 	let appData = [
 		{ name: 'iTerm', shortcut: 'iterm', icon: 'fa fa-terminal' },
 		{ name: 'Chrome', shortcut: 'chrome', icon: 'fab fa-chrome' },
 		{ name: 'VSCode', shortcut: 'code', icon: 'fas fa-code' },
 		{ name: 'Spotify', shortcut: 'spotify', icon: 'fab fa-spotify' }
 	];
-
-	let style = {
-		...element,
-		float: 'left'
-	};
 
 	let spaceStyle = (position, space) => {
 		let style = {
