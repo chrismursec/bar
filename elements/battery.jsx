@@ -1,7 +1,7 @@
 import { element } from '../lib/style.js';
 
 const render = ({ output, error, side, config, data, charge }) => {
-	var batColor = level => {
+	let batColor = level => {
 		var level = parseInt(level);
 
 		if (level > 80) return '#97c475';
@@ -12,7 +12,7 @@ const render = ({ output, error, side, config, data, charge }) => {
 		return '#e06c75'; // Red
 	};
 
-	var style = level => {
+	let style = level => {
 		return {
 			...element,
 			...config.style,
@@ -21,24 +21,24 @@ const render = ({ output, error, side, config, data, charge }) => {
 		};
 	};
 
-	var iconStyle = {
+	let iconStyle = {
 		padding: '0 0 0 10px',
 		fontSize: '16px'
 	};
 
-	var charging = charge => {
-		var isCharging = false;
+	let charging = charge => {
+		let isCharging = false;
 		if (charge === "'AC Power'") {
 			isCharging = true;
 		}
 		return isCharging;
 	};
 
-	var showBolt = () => {
+	let showBolt = () => {
 		if (charging(charge)) return 'bolt';
 	};
 
-	var iconName = level => {
+	let iconName = level => {
 		var level = parseInt(level);
 		if (level > 80) return 'battery-full';
 		if (level > 60) return 'battery-three-quarters';

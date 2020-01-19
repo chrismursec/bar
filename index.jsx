@@ -3,7 +3,15 @@
 export const refreshFrequency = 5000; // ms
 
 import { theme } from './lib/style.js';
-import { Battery, Cpu, Time, Workspaces, Playing } from './elements/index.jsx';
+import {
+	Battery,
+	Cpu,
+	Ip,
+	Time,
+	Workspaces,
+	Playing,
+	Weather
+} from './elements/index.jsx';
 
 const config = {
 	time: {
@@ -22,7 +30,13 @@ const config = {
 	cpu: {
 		style: {}
 	},
+	ip: {
+		style: {}
+	},
 	playing: {
+		style: {}
+	},
+	weather: {
 		style: {}
 	}
 };
@@ -51,9 +65,12 @@ const result = (data, key) => {
 
 // export const command = 'sh bar/scripts/update'
 export const command = `
-BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';');
-CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';');
+bash
+BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';')
+CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';')
 CPU=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
+WEATHER=$(curl -s wttr.in/Stockport?format=%t)
+IP=$(curl -s checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//')
 SPOTIFY=$(osascript -e 'tell application "System Events"
 set processList to (name of every process)
 end tell
@@ -74,6 +91,8 @@ echo $(cat <<-EOF
   {
 	"battery": "$BAT",
 	"cpu": "$CPU",
+	"ip": "$IP",
+	"weather": "$WEATHER",
 	"charging": "$CHARGE",
     "playing": "$SPOTIFY"
   }
@@ -102,6 +121,8 @@ export const render = ({ output, error }) => {
 				output={result(output, 'cpu')}
 				side="left"
 			/>
+			<Ip config={config.ip} output={result(output, 'ip')} />
+			<Weather config={config.weather} data={result(output, 'weather')} />
 
 			<Playing config={config.playing} data={result(output, 'playing')} />
 			<Time config={config.time} side="right"></Time>
@@ -113,5 +134,5 @@ export const render = ({ output, error }) => {
 			/>
 		</div>
 	);
-	return error ? errorContent : content;
+	return content;
 };
