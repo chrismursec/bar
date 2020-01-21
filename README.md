@@ -13,11 +13,13 @@ that places a customizable bar on your desktop.
 
 - Currently playing music from
   - Spotify
-- Battery
+- Battery (with charging indicator)
 - Date/Time
 - Application Launcher
 - CPU Usage
+- -Disk Space
 - IP Address 
+- Download Speed
 - Current weather (temperature)
 
 
