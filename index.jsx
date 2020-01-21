@@ -86,12 +86,12 @@ export const render = ({ output, error }) => {
 				type="text/css"
 				href="bar/assets/font-awesome/css/all.min.css"
 			/>
-			{/* <Workspaces side="left" /> */}
+			<Workspaces side="left" />
 
 			<Cpu data={result(output, 'cpu')} />
 			<Disk data={result(output, 'disk')} />
 
-			<Ip data={result(output, 'ip')} />
+			{/* <Ip data={result(output, 'ip')} /> */}
 			<Speed data={result(output, 'speed')} />
 			<Weather data={result(output, 'weather')} />
 
