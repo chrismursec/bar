@@ -1,30 +1,29 @@
 import { element } from '../lib/style.js';
 
-const render = ({ data }) => {
-	let style = {
-		...element,
-		float: 'left'
-	};
+const render = ({ diskSpaceData }) => {
+	let diskInt = parseInt(diskSpaceData);
 
-	let diskInt = parseInt(data);
-
-	const diskLevel = () => {
+	const diskColor = () => {
 		const fullDisk = 256;
 		let color = '';
-		if (fullDisk - diskInt <= 100) color = '#97c475';
-		else if (fullDisk - diskInt <= 128) color = '#e5c07b';
-		else if (fullDisk - diskInt <= 200) color = '#d09a6a';
+		if (fullDisk - diskInt <= 100) color = '#5cb85c';
+		else if (fullDisk - diskInt <= 128) color = '#f0ad4e';
+		else if (fullDisk - diskInt <= 200) color = '#d9534f';
 
 		return color;
 	};
 
+	let style = {
+		...element,
+		float: 'right',
+		borderBottom: `1px solid ${diskColor()}`,
+		marginRight: '5px'
+	};
+
 	return (
 		<span style={style}>
-			<i
-				className="fa fa-hdd"
-				style={{ paddingRight: '5px', color: diskLevel() }}
-			></i>
-			{data}
+			<i className="fa fa-hdd" style={{ paddingRight: '5px' }}></i>
+			{diskSpaceData}
 		</span>
 	);
 };

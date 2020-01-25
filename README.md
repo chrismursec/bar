@@ -17,7 +17,7 @@ that places a customizable bar on your desktop.
 - Date/Time
 - Application Launcher
 - CPU Usage
-- -Disk Space
+- Disk Space
 - IP Address 
 - Download Speed
 - Current weather (temperature)

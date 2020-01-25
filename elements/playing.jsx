@@ -1,6 +1,6 @@
 import { element } from '../lib/style.js';
 
-const render = ({ data, error }) => {
+const render = ({ spotifyPlayingData }) => {
 	let style = song => {
 		if (song) {
 			return {
@@ -9,8 +9,7 @@ const render = ({ data, error }) => {
 				textAlign: 'center',
 				position: 'fixed',
 				bottom: '0',
-				left: '0',
-				width: '100%'
+				left: '0'
 			};
 		} else {
 			return { display: 'none' };
@@ -22,12 +21,12 @@ const render = ({ data, error }) => {
 		padding: '0 10px'
 	};
 
-	return error ? (
-		<span style={style('err')}>!</span>
-	) : (
-		<span style={style(data)}>
-			<i className="fab fa-spotify" style={iconStyle}></i>
-			{data}
+	return (
+		<span style={style(spotifyPlayingData)}>
+			<div>
+				<i className="fab fa-spotify" style={iconStyle}></i>
+				{spotifyPlayingData}
+			</div>
 		</span>
 	);
 };

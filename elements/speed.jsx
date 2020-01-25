@@ -1,33 +1,32 @@
 import { element } from '../lib/style.js';
 
-const render = ({ data }) => {
-	let style = {
-		...element,
-		float: 'left'
-	};
-
+const render = ({ downloadSpeedData }) => {
 	const formatSpeed = () => {
 		var regex = /[+-]?\d+(\.\d+)?/g;
-		var float = data.match(regex);
+		var float = downloadSpeedData.match(regex);
 
 		return parseFloat(float);
 	};
-	const speedLevel = () => {
+
+	const speedColor = () => {
 		let speed = formatSpeed();
 		let color = '';
-		if (speed >= 80) color = '#97c475';
-		else if (speed > 80) color = '#e5c07b';
-		else if (speed > 30) color = '#d09a6a';
+		if (speed >= 80) color = '#5cb85c';
+		if (speed < 80) color = '#f0ad4e';
+		if (speed < 30) color = '#d9534f';
 
 		return color;
 	};
 
+	let style = {
+		...element,
+		float: 'right',
+		borderBottom: `1px solid ${speedColor()}`
+	};
+
 	return (
 		<span style={style}>
-			<i
-				className="fa fa-download"
-				style={{ paddingRight: '5px', color: speedLevel() }}
-			></i>
+			<i className="fa fa-download" style={{ paddingRight: '5px' }}></i>
 			{formatSpeed()}
 		</span>
 	);

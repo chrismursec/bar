@@ -1,4 +1,6 @@
 import { theme } from './lib/style.js';
+import parse from './lib/parse.js';
+import dataModel from './lib/data.model.js';
 import {
 	Battery,
 	Cpu,
@@ -20,65 +22,27 @@ const barStyle = {
 	background: theme.background,
 	overflow: 'hidden',
 	color: theme.text,
-	height: '25px',
-	fontFamily: 'Cascadia Code',
-	fontSize: '.9rem',
+	height: '27px',
+	fontFamily: 'Helvetica',
+	fontSize: '14px',
 	boxShadow: '0px 2px 5px 0 #000000'
 };
 
-const result = (data, key) => {
-	try {
-		return JSON.parse(data)[key];
-	} catch (e) {
-		return '';
-	}
-};
-
-export const command = `
-BAT=$(pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d';')
-CHARGE=$(pmset -g batt | egrep "'([^']+).*'" -o --colour=auto |cut -f1 -d';')
-CPU=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
-DISK=$(df -H | grep '/dev/disk1s1' | awk '{ print $4 }')
-SPEED=$(/usr/local/bin/speedtest --simple --no-upload | awk 'NR==2{ print; }')
-WEATHER=$(curl -s wttr.in/Stockport?format=%t)
-IP=$(curl -s checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//')
-SPOTIFY=$(osascript -e 'tell application "System Events"
-set processList to (name of every process)
-end tell
-if (processList contains "Spotify") is true then
-tell application "Spotify"
-if player state is playing then
-set artistName to artist of current track
-set trackName to name of current track
-return artistName & " - " & trackName
-else
-return ""
-end if
-end tell
-end if')
-
-
-echo $(cat <<-EOF
-  {
-	"battery": "$BAT",
-	"cpu": "$CPU",
-	"ip": "$IP",
-	"disk": "$DISK",
-	"speed": "$SPEED",
-	"weather": "$WEATHER",
-	"charging": "$CHARGE",
-    "playing": "$SPOTIFY"
-  }
-EOF
-);
-`;
+export const command = './bar/scripts/shell.sh';
 
 export const render = ({ output, error }) => {
-	if (error) {
-		console.log(new Date());
-		console.log(error);
-		console.log(String(error));
-	}
+	// let data = dataModel;
+
+	// if (typeof parse(output != undefined)) {
+	// 	data = parse(output);
+	// }
+	const data = parse(output);
+	// if (error) {
+	// 	console.log(new Date());
+	// 	console.log(error);
+	// 	console.log(String(error));
+	// }
+
 	let content = (
 		<div style={barStyle}>
 			<link
@@ -86,21 +50,28 @@ export const render = ({ output, error }) => {
 				type="text/css"
 				href="bar/assets/font-awesome/css/all.min.css"
 			/>
-			<Workspaces side="left" />
-
-			<Cpu data={result(output, 'cpu')} />
-			<Disk data={result(output, 'disk')} />
-
-			{/* <Ip data={result(output, 'ip')} /> */}
-			<Speed data={result(output, 'speed')} />
-			<Weather data={result(output, 'weather')} />
-
-			<Playing data={result(output, 'playing')} />
-			<Time />
-			<Battery
-				data={result(output, 'battery')}
-				charge={result(output, 'charging')}
+			<Workspaces
+				chrome={data.openApps.chrome}
+				code={data.openApps.vscode}
+				spotify={data.openApps.spotify}
 			/>
+			{/* <Battery
+				data={data.battery.percentage}
+				charge={data.battery.charging}
+			/> */}
+			<Disk diskSpaceData={data.device.disk} />
+			<Cpu cpuUsageData={data.device.cpu} />
+
+			<Speed downloadSpeedData={data.network.downloadSpeed} />
+			<Ip ipAddressData={data.network.ip} />
+
+			<Weather
+				temperatureData={data.weather.temperature}
+				conditionData={data.weather.weatherCondition}
+			/>
+
+			<Playing spotifyPlayingData={data.media.spotify} />
+			{/* <Time /> */}
 		</div>
 	);
 	return content;

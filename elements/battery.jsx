@@ -48,12 +48,12 @@ const render = ({ data, charge, error }) => {
 		<span style={style(0)}></span>
 	) : (
 		<span style={style(data)}>
-			<span>{data}</span>
+			{/* <span>{data}</span> */}
 
-			<span> {<i className={'far fa-' + charging(charge)}></i>}</span>
-			<span style={iconStyle}>
+			{/* <span> {<i className={'far fa-' + charging(charge)}></i>}</span> */}
+			{/* <span style={iconStyle}>
 				<i className={'far fa-' + iconName(data)}></i>
-			</span>
+			</span> */}
 			<span style={iconStyle}>
 				<i
 					className={'far fa-' + showBolt()}

@@ -1,15 +1,14 @@
 import { element } from '../lib/style.js';
 
-const render = ({ data, error }) => {
+const render = ({ ipAddressData }) => {
 	var style = {
 		...element,
-		float: 'left'
+		float: 'right',
+		borderBottom: '1px solid #468488'
 	};
-	return error ? (
-		<span style={style}>!</span>
-	) : (
+	return (
 		<span style={style}>
-			<i className="fa fa-globe"></i> {data}
+			<i className="fa fa-globe"></i> {ipAddressData}
 		</span>
 	);
 };
