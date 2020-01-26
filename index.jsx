@@ -8,11 +8,12 @@ import {
 	Time,
 	Workspaces,
 	Playing,
+	MediaButtons,
 	Weather,
 	Disk,
 	Speed
 } from './elements/index.jsx';
-export const refreshFrequency = 5000;
+export const refreshFrequency = 1000;
 
 const barStyle = {
 	bottom: 0,
@@ -31,17 +32,12 @@ const barStyle = {
 export const command = './bar/scripts/shell.sh';
 
 export const render = ({ output, error }) => {
-	// let data = dataModel;
+	let data = dataModel;
+	let shellData = parse(output);
 
-	// if (typeof parse(output != undefined)) {
-	// 	data = parse(output);
-	// }
-	const data = parse(output);
-	// if (error) {
-	// 	console.log(new Date());
-	// 	console.log(error);
-	// 	console.log(String(error));
-	// }
+	if (shellData != undefined) {
+		data = shellData;
+	}
 
 	let content = (
 		<div style={barStyle}>
@@ -50,20 +46,18 @@ export const render = ({ output, error }) => {
 				type="text/css"
 				href="bar/assets/font-awesome/css/all.min.css"
 			/>
-			<Workspaces
-				chrome={data.openApps.chrome}
-				code={data.openApps.vscode}
-				spotify={data.openApps.spotify}
-			/>
-			{/* <Battery
-				data={data.battery.percentage}
-				charge={data.battery.charging}
-			/> */}
+			{/* Left */}
+			<Workspaces />
+
+			<MediaButtons />
+
+			{/* Right */}
+
 			<Disk diskSpaceData={data.device.disk} />
 			<Cpu cpuUsageData={data.device.cpu} />
 
 			<Speed downloadSpeedData={data.network.downloadSpeed} />
-			<Ip ipAddressData={data.network.ip} />
+			{/* <Ip ipAddressData={data.network.ip} /> */}
 
 			<Weather
 				temperatureData={data.weather.temperature}
@@ -72,6 +66,10 @@ export const render = ({ output, error }) => {
 
 			<Playing spotifyPlayingData={data.media.spotify} />
 			{/* <Time /> */}
+			{/* <Battery
+				data={data.battery.percentage}
+				charge={data.battery.charging}
+			/> */}
 		</div>
 	);
 	return content;

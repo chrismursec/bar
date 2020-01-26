@@ -12,7 +12,7 @@ WIFI_STATUS=$(ifconfig en0 | grep status | cut -c 10-)
 WIFI_SSID=$(networksetup -getairportnetwork en0 | cut -c 24-)
 
 TEMPERATURE=$(curl -s wttr.in/Stockport?format=%t)
-WEATHERCONDITION=$(curl -s wttr.in/London?format="%C")
+WEATHERCONDITION=$(curl -s wttr.in/Stockport?format="%C")
 
 SPOTIFY=$(osascript -e 'tell application "System Events"
 set processList to (name of every process)
@@ -28,27 +28,6 @@ return ""
 end if
 end tell
 end if')
-
-if pgrep -x "Google Chrome" > /dev/null
-then
-    CHROME_RUNNING=true
-else
-    CHROME_RUNNING=false
-fi
-
-if pgrep -f "Code" > /dev/null
-then
-    CODE_RUNNING=true
-else
-    CODE_RUNNING=false
-fi
-
-if pgrep -x "Spotify" > /dev/null
-then
-    SPOTIFY_RUNNING=true
-else
-    SPOTIFY_RUNNING=false
-fi
 
 
 echo $(cat <<-EOF
@@ -73,11 +52,6 @@ echo $(cat <<-EOF
 	  },
 	  "media": {
 		  "spotify": "$SPOTIFY"
-	  },
-	  "openApps": {
-		  "chrome": "$CHROME_RUNNING",
-		  "vscode": "$CODE_RUNNING",
-		  "spotify": "$SPOTIFY_RUNNING"
 	  }
   }
 EOF
